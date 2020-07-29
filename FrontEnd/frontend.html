@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function opnaardebackend(){
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                hetObject = JSON.parse(this.responseText);
+                console.log(this.response);
+               document.getElementById("allEmployee").innerHTML = hetObject.name;
+            }
+
+            xhr.open("GET","http://localhost:8082/api/department",true);
+            xhr.send();                
+            }
+        
+        function newEmployee() {
+            var obj = {};
+            obj.name = document.getElementById("denaam").value;
+            obj.salary = document.getElementById("salaris").value;
+            objJSON = JSON.stringify(obj);
+            console.log(objJSON);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                console.log("console Response newEmployee");
+            }
+            xhr.open("POST","http://localhost:8082/api/employee/new",true);
+            xhr.setRequestHeader("Content-type","application/json")
+            xhr.send(objJSON);
+        }
+
+        function newSalary(){
+            var xhr = new XMLHttpRequest();
+            var id = document.getElementById("id").value
+            var obj = {};
+            obj.salary = document.getElementById("nieuwsalaris").value;
+            objJSON =JSON.stringify(obj);
+            xhr.onreadystatechange = function(){
+                console.log("nieuw salaris ingevoerd")
+            }
+            xhr.open("PUT", "http://localhost:8082/api/employee/newsalary/" + id, true);
+            xhr.setRequestHeader("Content-type", "application/json")
+            xhr.send(objJSON);
+
+        }
+
+        function getAllEmployees(){
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                console.log(this.response);
+                if(this.readyState == 4) {
+                    var EmployeesfromDB = JSON.parse(this.responseText);
+                    var employeestring = "";
+                    var i;
+
+                    for(i=0; i<EmployeesfromDB.length; i++){
+                        employeestring +=
+                        `
+                        <div>
+                        <b>ID=${EmployeesfromDB[i].id}  </b>  
+                        <b><i>Name=${EmployeesfromDB[i].name} </i></b>
+                        <b><u>Salary=${EmployeesfromDB[i].salary} </u></b>
+                        
+                        </div>
+                        `
+                    }
+                }
+                
+               document.getElementById("allEmployee").innerHTML = employeestring;
+            }
+            xhr.open("GET","http://localhost:8082/api/employee/all",true);
+            xhr.send();
+        }
+
+        function deleteEmployee(){
+            var xhr = new XMLHttpRequest();
+            var id = document.getElementById("iddelete").value
+            xhr.onreadystatechange = function () {
+               console.log("Employee verwijderd!")
+            }
+            xhr.open("DELETE", "http://localhost:8082/api/employee/delete/" + id, true);
+            xhr.send();
+        }
+
+        function nieuweTelefoon(){
+            var xhr = new XMLHttpRequest();
+            var obj = {};
+            obj.telefoonNr = document.getElementById("telefoonnummer").value
+            objJSON = JSON.stringify(obj);
+            xhr.onreadystatechange = function() {
+                console.log("nieuwe telefoon aangemaakt")
+            }
+            xhr.open("POST", "http://localhost:8082/api/telefoon/new", true);
+            xhr.setRequestHeader("Content-type", "application/json")
+            xhr.send(objJSON)
+        }
+
+        function alleTelefoons() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+
+                if(this.readyState == 4) {
+                    var telefoonsDB = JSON.parse(this.responseText);
+                    var telefoonstr = "";
+                    var i;
+                    for (i=0; i<telefoonsDB.length; i++) {
+                        telefoonstr +=
+                        `
+                        <div>
+                        <b>ID= ${telefoonsDB[i].id} </b>
+                        <b><i>TelefoonNr.= ${telefoonsDB[i].phoneNumber}</p>
+                        </div>
+                        `
+                    }
+                    documet.getElementById("telefoongegevens").innerHTML = telefoonstr;
+                }
+            }
+            xhr.open("GET", "http://localhost:8082/api/telefoon/all", true);
+            xhr.send();
+        }
+
+        function telefoonWerknemer() {
+            var xhr = new XMLHttpRequest();
+            var werknemerID = document.getElementById("employeeID").value
+            var telefoonID = document.getElementById("telefoonID").value
+            xhr.onreadystatechange = function(){
+                consolo.log("Telefoon aan werknemer toegevoegd")
+            }
+            xhr.open("PUT", "http://localhost:8082/api/employee/addphone" + werknemerID + "/" + telefoonID, true);
+            xhr.send();
+        }
+
+    </script>
+
+</head>
+<body>
+    <p>Voer naam werknemer en salaris in</p>
+    <br>
+    <input type=text id=denaam placeholder="naam"><input type=text id=salaris placeholder="salaris">   
+    <input type=button onclick=newEmployee() value=versturen>
+    <input type="button" onclick="getAllEmployees()" value="getAllEmployees">
+    <div id=allEmployee></div>
+    <p>Voer de ID van de werknemer en het nieuwe salaris in</p>
+    <input type=text id=id placeholder="ID">
+    <input type=text id=nieuwsalaris placeholder="Het nieuwe salaris"><input type=button onclick=newSalary() value="Update Salaris">
+    <p>Voer de ID van de werknemer die je wilt verwijderen</p>
+    <input type=text id=iddelete placeholder="ID te verwijderen"><input type=button onclick=deleteEmployee() value="Verwijder employee">
+
+    <p>Voer het nummer van de telefoon die je wilt toevoegen</p>
+    <input type="text" id=telefoonnummer placeholder="Telefoonnummer">
+    <input type=button onclick="nieuweTelefoon()" value="Nieuwe Telefoon">
+    <input type="button" onclick="alleTelefoons()" value="Get Phones">
+    <div id=telefooninfo></div>
+
+    <p>Voer het ID van de werknemer in en van de telefoon om een telefoon aan de werknemer toe te voegen</p>
+    <input type=text id=telefoonid placeholder="Telefoon ID">
+    <input type=text id=employeeID placeholder="EmployeeID">
+    <input type=button onclick="telefoonWerknemer()" value="Telefoon toevoegen aan Employee">
+
+    <div></div>
+</body>
+</html>

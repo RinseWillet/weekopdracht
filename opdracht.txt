@@ -1,0 +1,21 @@
+1:
+
+
+2:
+
+
+3:
+
+
+4:
+
+
+5:
+Doel:
+Maak een telefoon aan en koppel employee aan een telefoon.
+
+Opdracht
+
+Maak een formulier in de front end voor het aanmaken van een telefoon
+Maak een formulier voor het koppelen van de employee aan de telefoon
+Verander de get all employees zodat ook het telefoonnummer wordt getoond bij alle employees
