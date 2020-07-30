@@ -45,7 +45,7 @@ public class EmployeeEndpoint {
 		 employeeService.deleteEmployeeByID(id);
 	 }
 	 
-	 @PutMapping("addphone{id}/{phoneid}")
+	 @PutMapping("/addphone/{id}/{phoneid}")
 	 public void telefoonToevoegenEmployee(@PathVariable(value = "id") long employeeID, @PathVariable(value = "phoneid") long telefoonID) {
 		 employeeService.TelefoonToevoegenEmployee(employeeID, telefoonID);
 	 }

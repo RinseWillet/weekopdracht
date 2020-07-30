@@ -56,6 +56,7 @@ public class EmployeeService {
 			switcheroo.get().addPhone(null);
 		}
 		werknemer.addPhone(telefoon);
+		System.out.println("telefoon aan werknemer toegewezen");
 		return employeerepository.save(werknemer);
 	}
 		

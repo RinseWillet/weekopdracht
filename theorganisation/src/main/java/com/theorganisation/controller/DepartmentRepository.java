@@ -1,13 +1,11 @@
 package com.theorganisation.controller;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-import com.theorganisation.domain.*;
+import com.theorganisation.domain.Department;
 
-@Repository
+@Component
 public interface DepartmentRepository extends CrudRepository<Department, Long> {
 
 }

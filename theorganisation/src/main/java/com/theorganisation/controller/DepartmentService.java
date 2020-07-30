@@ -1,13 +1,10 @@
 package com.theorganisation.controller;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.theorganisation.domain.*;
+import com.theorganisation.domain.Department;
 
 @Service
 @Transactional

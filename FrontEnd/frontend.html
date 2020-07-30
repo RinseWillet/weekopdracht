@@ -57,15 +57,28 @@
                     var i;
 
                     for(i=0; i<EmployeesfromDB.length; i++){
-                        employeestring +=
+                        try {
+                            employeestring +=
                         `
                         <div>
                         <b>ID=${EmployeesfromDB[i].id}  </b>  
                         <b><i>Naam=${EmployeesfromDB[i].name} </i></b>
                         <b><u>Salaris=${EmployeesfromDB[i].salary} </u></b>
-                        <b><u>Telefoon=${EmployeesfromDB[i].Telefoon.telefoonNummer}
+                        <b><u>Telefoon=${EmployeesfromDB[i].phone} </u></b>
                         </div>
                         `
+                        } catch (err) {
+                            employeestring += 
+                            ` 
+                            <div>
+                            <h3>Name = ${EmployeesfromDB[x].name} </h3>
+                            <p>ID = ${EmployeesfromDB[x].id} </p>
+                            <p>Salaris = ${EmployeesfromDB[x].salary}</p>
+                            </div>
+                            `
+                        }
+                       
+
                     }
                 }
                 
@@ -101,7 +114,7 @@
         function alleTelefoons() {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
-
+                console.log(this.response);
                 if(this.readyState == 4) {
                     var inhoudDB = JSON.parse(this.responseText);
                     var telefoonstr = "";
@@ -127,9 +140,9 @@
             var werknemerID = document.getElementById("employeeID").value
             var telefoonID = document.getElementById("telefoonID").value
             xhr.onreadystatechange = function(){
-                consolo.log("Telefoon aan werknemer toegevoegd")
+                console.log("Telefoon aan werknemer toegevoegd")
             }
-            xhr.open("PUT", "http://localhost:8082/api/employee/addphone" + werknemerID + "/" + telefoonID, true);
+            xhr.open("PUT", "http://localhost:8082/api/employee/addphone/" + werknemerID + "/" + telefoonID, true);
             xhr.send();
         }
 
@@ -156,8 +169,8 @@
     <div id=telefooninfo></div>
 
     <p>Voer het ID van de werknemer in en van de telefoon om een telefoon aan de werknemer toe te voegen</p>
-    <input type=text id=telefoonid placeholder="Telefoon ID">
-    <input type=text id=employeeID placeholder="EmployeeID">
+    <input type=text id=telefoonID placeholder="Telefoon ID">
+    <input type=text id=employeeID placeholder="Employee ID">
     <input type=button onclick="telefoonWerknemer()" value="Telefoon toevoegen aan Employee">
 
     <div></div>
