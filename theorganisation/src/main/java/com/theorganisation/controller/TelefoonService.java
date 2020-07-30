@@ -19,6 +19,7 @@ public class TelefoonService {
 	}
 	
 	public Iterable<Telefoon> alleTelefoons() {
+		System.out.println("inzien alle telefoons in database");
 		return telefoonrepository.findAll();
 	}
 	

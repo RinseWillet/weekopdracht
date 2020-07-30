@@ -61,9 +61,9 @@
                         `
                         <div>
                         <b>ID=${EmployeesfromDB[i].id}  </b>  
-                        <b><i>Name=${EmployeesfromDB[i].name} </i></b>
-                        <b><u>Salary=${EmployeesfromDB[i].salary} </u></b>
-                        
+                        <b><i>Naam=${EmployeesfromDB[i].name} </i></b>
+                        <b><u>Salaris=${EmployeesfromDB[i].salary} </u></b>
+                        <b><u>Telefoon=${EmployeesfromDB[i].Telefoon.telefoonNummer}
                         </div>
                         `
                     }
@@ -88,7 +88,7 @@
         function nieuweTelefoon(){
             var xhr = new XMLHttpRequest();
             var obj = {};
-            obj.telefoonNr = document.getElementById("telefoonnummer").value
+            obj.telefoonNummer = document.getElementById("telefoonNummer").value
             objJSON = JSON.stringify(obj);
             xhr.onreadystatechange = function() {
                 console.log("nieuwe telefoon aangemaakt")
@@ -103,19 +103,19 @@
             xhr.onreadystatechange = function() {
 
                 if(this.readyState == 4) {
-                    var telefoonsDB = JSON.parse(this.responseText);
+                    var inhoudDB = JSON.parse(this.responseText);
                     var telefoonstr = "";
                     var i;
-                    for (i=0; i<telefoonsDB.length; i++) {
+                    for (i=0; i<inhoudDB.length; i++) {
                         telefoonstr +=
                         `
                         <div>
-                        <b>ID= ${telefoonsDB[i].id} </b>
-                        <b><i>TelefoonNr.= ${telefoonsDB[i].phoneNumber}</p>
+                        <b>ID= ${inhoudDB[i].id} </b>
+                        <b><i>TelefoonNr.= ${inhoudDB[i].telefoonNummer}</p>
                         </div>
                         `
                     }
-                    documet.getElementById("telefoongegevens").innerHTML = telefoonstr;
+                    document.getElementById("telefooninfo").innerHTML = telefoonstr;
                 }
             }
             xhr.open("GET", "http://localhost:8082/api/telefoon/all", true);
@@ -150,7 +150,7 @@
     <input type=text id=iddelete placeholder="ID te verwijderen"><input type=button onclick=deleteEmployee() value="Verwijder employee">
 
     <p>Voer het nummer van de telefoon die je wilt toevoegen</p>
-    <input type="text" id=telefoonnummer placeholder="Telefoonnummer">
+    <input type="text" id=telefoonNummer placeholder="TelefoonNummer">
     <input type=button onclick="nieuweTelefoon()" value="Nieuwe Telefoon">
     <input type="button" onclick="alleTelefoons()" value="Get Phones">
     <div id=telefooninfo></div>

@@ -18,7 +18,7 @@ public class Telefoon {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private String telefoonNummer;
+	private long telefoonNummer;
 	
 	@OneToOne(mappedBy = "phone", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonBackReference
@@ -32,11 +32,11 @@ public class Telefoon {
 		this.id = id;
 	}
 
-	public String getTelefoonNummer() {
+	public long getTelefoonNummer() {
 		return telefoonNummer;
 	}
 
-	public void setTelefoonNummer(String telefoonNummer) {
+	public void setTelefoonNummer(long telefoonNummer) {
 		this.telefoonNummer = telefoonNummer;
 	}
 	

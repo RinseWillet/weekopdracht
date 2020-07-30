@@ -27,7 +27,7 @@ public class Employee {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "phoneID", referencedColumnName = "id")
-	private Telefoon phone;
+	private Telefoon telefoon;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
